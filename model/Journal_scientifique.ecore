@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="">
+  <eClassifiers xsi:type="ecore:EClass" name="Journal">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="issues" lowerBound="1"
+        upperBound="-1" eType="#//Issues" eOpposite="#//Issues/journal"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="IssueNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="autheur" eType="#//Autheur"
+        eOpposite="#//Autheur/journal"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Issues">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="journal" lowerBound="1"
+        eType="#//Journal" eOpposite="#//Journal/issues"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="articles" lowerBound="1"
+        upperBound="-1" eType="#//Articles" containment="true" eOpposite="#//Articles/numéro"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numéro" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pages" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SpecialIssues" eSuperTypes="#//Issues">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="titre" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Articles">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="numéro" lowerBound="1"
+        eType="#//Issues" eOpposite="#//Issues/articles"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Type" eType="#//TYPE_ARTICLE"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="firstPage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="LastPage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="redaction" lowerBound="1"
+        upperBound="-1" eType="#//Autheur" eOpposite="#//Autheur/ecrit"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="revisioner" lowerBound="1"
+        upperBound="3" eType="#//Autheur" eOpposite="#//Autheur/examine"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TYPE_ARTICLE">
+    <eLiterals name="Recherche" literal="Recherche"/>
+    <eLiterals name="Application" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Autheur">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ecrit" upperBound="-1"
+        eType="#//Articles" eOpposite="#//Articles/redaction"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="examine" eType="#//Articles"
+        eOpposite="#//Articles/revisioner"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="journal" eType="#//Journal"
+        eOpposite="#//Journal/autheur"/>
+  </eClassifiers>
+</ecore:EPackage>
